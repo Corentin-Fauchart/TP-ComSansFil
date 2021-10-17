@@ -17,11 +17,12 @@
 #include "MfErrNo.h"
 #include "ODALID.h"
 
-uint8_t key_ff[6] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
+//uint8_t key_ff[6] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
 
+uint8_t key_ff[6] = { 0xC0, 0xC1, 0xC2, 0xC3, 0xC4, 0xC5 };
 int card_read(BYTE sect_count);
 
-BOOL bench = TRUE;
+BOOL bench = FALSE;
 
 ReaderName MonLecteur;
 
@@ -206,6 +207,7 @@ int card_read(BYTE sect_count)
                 //goto close;
             }
         }
+
         else{
             if (!bench){
                 printf("[OK]\n");
