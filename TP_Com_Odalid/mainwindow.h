@@ -23,10 +23,17 @@ public:
 private slots:
     void on_button_Connect_clicked();
 
-    void on_button_Saisie_clicked();
-
     void on_button_Quitter_clicked();
 
+    int  card_read();
+
+    int card_write();
+
+    void on_button_Lecture1_clicked();
+
+    void on_button_Ecriture_clicked();
+
+    void on_button_Deconnexion_clicked();
 
 private:
     Ui::MainWindow *ui;

@@ -19,7 +19,7 @@ CXXFLAGS      = -fno-keep-inline-dllexport -g -std=gnu++11 -Wall -Wextra -Wextra
 INCPATH       = -I. -I..\LIB -I..\LIB -IC:\Qt\5.15.2\mingw81_64\mkspecs\win32-g++ 
 LINKER      =        g++
 LFLAGS        =        -Wl,-subsystem,console -mthreads
-LIBS        =        -LC:\Users\am835177\Documents\TP_COM\TP-ComSansFil-main\Librairie+sample\LIB -lODALID_Education   
+LIBS        =        -LC:\Users\am835177\Documents\TP-ComSansFil-main\TP-ComSansFil-main\Librairie+sample\LIB -lODALID_Education   
 QMAKE         = C:\Qt\5.15.2\mingw81_64\bin\qmake.exe
 DEL_FILE      = del
 CHK_DIR_EXISTS= if not exist

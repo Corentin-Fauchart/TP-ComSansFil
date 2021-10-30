@@ -6,32 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>446</width>
-    <height>351</height>
+    <width>607</width>
+    <height>431</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="button_Connect">
+   <widget class="QTextEdit" name="affichageCarte">
     <property name="geometry">
      <rect>
-      <x>70</x>
-      <y>100</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Connexion</string>
-    </property>
-   </widget>
-   <widget class="QTextEdit" name="affichage">
-    <property name="geometry">
-     <rect>
-      <x>170</x>
-      <y>80</y>
+      <x>200</x>
+      <y>10</y>
       <width>221</width>
       <height>71</height>
      </rect>
@@ -40,17 +27,10 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QTextEdit" name="saisie">
-    <property name="geometry">
-     <rect>
-      <x>130</x>
-      <y>190</y>
-      <width>261</width>
-      <height>71</height>
-     </rect>
+   <widget class="QPushButton" name="button_Ecriture">
+    <property name="enabled">
+     <bool>false</bool>
     </property>
-   </widget>
-   <widget class="QPushButton" name="button_Saisie">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -60,34 +40,172 @@
      </rect>
     </property>
     <property name="text">
-     <string>Saisie</string>
+     <string>Ecriture</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="button_Quitter">
+   <widget class="QPushButton" name="button_Lecture1">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>10</y>
+      <x>20</x>
+      <y>110</y>
       <width>75</width>
       <height>23</height>
      </rect>
     </property>
     <property name="text">
-     <string>Quitter</string>
+     <string>Lecture</string>
     </property>
    </widget>
-  </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>446</width>
-     <height>21</height>
-    </rect>
-   </property>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>110</y>
+      <width>258</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QLabel" name="label_Identite">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Identité</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTextEdit" name="affichageInfo2"/>
+     </item>
+     <item>
+      <widget class="QTextEdit" name="affichageInfo3"/>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>160</width>
+      <height>56</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QPushButton" name="button_Connect">
+         <property name="text">
+          <string>Connexion</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="button_Deconnexion">
+         <property name="text">
+          <string>Déconnexion</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QPushButton" name="button_Quitter">
+       <property name="text">
+        <string>Quitter</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>220</y>
+      <width>258</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_3">
+     <item>
+      <widget class="QLabel" name="label_Unite">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Nombre d'unités :</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTextEdit" name="affichageMonnaie">
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>330</y>
+      <width>120</width>
+      <height>56</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_4">
+       <item>
+        <widget class="QSpinBox" name="spinBox_decremente"/>
+       </item>
+       <item>
+        <widget class="QSpinBox" name="spinBox_incremente"/>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_5">
+       <item>
+        <widget class="QPushButton" name="pushButton_Payer">
+         <property name="text">
+          <string>Payer</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_Payer_2">
+         <property name="text">
+          <string>Charger</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionSecteur_2">
+   <property name="text">
+    <string>Secteur 2</string>
+   </property>
+  </action>
+  <action name="actionSecteur_3">
+   <property name="text">
+    <string>Secteur 3</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
