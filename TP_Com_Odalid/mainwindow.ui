@@ -56,13 +56,13 @@
      <string>Lecture</string>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>200</x>
       <y>110</y>
       <width>258</width>
-      <height>91</height>
+      <height>81</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -86,7 +86,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -123,13 +123,13 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>200</x>
       <y>220</y>
       <width>258</width>
-      <height>51</height>
+      <height>98</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -154,7 +154,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>200</x>
@@ -167,10 +167,7 @@
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_4">
        <item>
-        <widget class="QSpinBox" name="spinBox_decremente"/>
-       </item>
-       <item>
-        <widget class="QSpinBox" name="spinBox_incremente"/>
+        <widget class="QSpinBox" name="spinBox_selectValue"/>
        </item>
       </layout>
      </item>
@@ -178,13 +175,19 @@
       <layout class="QVBoxLayout" name="verticalLayout_5">
        <item>
         <widget class="QPushButton" name="pushButton_Payer">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="text">
           <string>Payer</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_Payer_2">
+        <widget class="QPushButton" name="pushButton_Charger">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="text">
           <string>Charger</string>
          </property>

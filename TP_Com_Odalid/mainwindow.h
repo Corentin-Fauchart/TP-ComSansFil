@@ -16,6 +16,7 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
+
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
@@ -35,8 +36,16 @@ private slots:
 
     void on_button_Deconnexion_clicked();
 
+    void on_pushButton_Payer_clicked();
+
+    void on_pushButton_Charger_clicked();
+
 private:
     Ui::MainWindow *ui;
+    void changerValeurPM(bool choixAction);
+    const BOOL PAYER = false;
+    const BOOL CHARGER = true;
+
 
 };
 #endif // MAINWINDOW_H

@@ -42,7 +42,7 @@ void MainWindow::on_button_Connect_clicked()
     status = Mf_Classic_LoadKey(&MonLecteur, Auth_KeyA, key_sec2Lec, 2);
     status = Mf_Classic_LoadKey(&MonLecteur, Auth_KeyB, key_sec2Ecr, 2);
     status = Mf_Classic_LoadKey(&MonLecteur, Auth_KeyA, key_sec3Lec, 3);
-    status = Mf_Classic_LoadKey(&MonLecteur, Auth_KeyB, key_sec2Ecr, 3);
+    status = Mf_Classic_LoadKey(&MonLecteur, Auth_KeyB, key_sec3Ecr, 3);
     status = Version(&MonLecteur);
     ui->affichageCarte->setText(MonLecteur.version);
     ui->affichageCarte->update();
@@ -63,7 +63,7 @@ void MainWindow::on_button_Quitter_clicked()
 int  MainWindow::card_read()
 {
     uint8_t data[240] = {0};
-    char dataMonnaie[240] = {0};
+    uint32_t dataMonnaie = 0;
     char data2[240] = {0};
     char data3[240] = {0};
 
@@ -76,6 +76,7 @@ int  MainWindow::card_read()
 
   status = ISO14443_3_A_PollCard(&MonLecteur, atq, sak, uid, &uid_len);
 
+  //identité
   status = Mf_Classic_Read_Block(&MonLecteur, TRUE, 9, data, Auth_KeyA, 2);
   strcpy(data2, (char*)data);
   ui->affichageInfo2->setText(data2);
@@ -84,50 +85,25 @@ int  MainWindow::card_read()
   strcpy(data3, (char*)data);
   ui->affichageInfo3->setText(data3);
 
-  status = Mf_Classic_Read_Block(&MonLecteur, TRUE, 14, data, Auth_KeyA, 3);
-  strcpy(dataMonnaie, (char*)data);
-  ui->affichageMonnaie->setText(dataMonnaie);
+  status = Mf_Classic_Read_Value(&MonLecteur, TRUE, 14, &dataMonnaie, Auth_KeyA, 3);
 
-  qDebug() <<(char*)data;
+
+  ui->affichageMonnaie->setText(QString::number((int32_t)dataMonnaie));
+
+  //qDebug() <<(char*)data;
   if(!ui->button_Ecriture->isEnabled()){
       ui->button_Ecriture->setEnabled(true);
   }
- // qDebug() << data1;
+  if(!ui->pushButton_Payer->isEnabled()){
+      ui->pushButton_Payer->setEnabled(true);
+  }
+  if(!ui->pushButton_Charger->isEnabled()){
+      ui->pushButton_Charger->setEnabled(true);
+  }
 
-/*
-  if (status != MI_OK){
-      if (bench)
-          qDebug() <<"Read sector " << sect;
-      qDebug() <<"[Failed]\n";
-      qDebug() << GetErrorMessage(status) << " (" << status << ")\n";
-      //status = Mf_Classic_Read_Sector(&MonLecteur, TRUE, sect, data, Auth_KeyA, 0);
-      status = Mf_Classic_Read_Block(&MonLecteur, TRUE, 9, data, Auth_KeyA, 0);
 
-      if (status != MI_OK){
-          qDebug() <<"No available tag in RF field\n";
 
-          // Display sector's data
-      bloc_count = 3;
-  for (bloc = 0; bloc < bloc_count; bloc++){
-      affichage+= bloc+": ";
-      // Each blocks is 16-bytes wide
-      for (offset = 0; offset < 16; offset++){
-          ui->affichage->setText((char*)data);
-            ui->affichage->update();
-          // affichage+= QString::number( data[16 * bloc + offset], 16 );
-      }
-      qDebug() << affichage;
-      for (offset = 0; offset < 16; offset++){
-          if (data[16 * bloc + offset] >= ' '){
-              qDebug() <<data[16 * bloc + offset];
-          } else
-              qDebug() <<".";
 
-      }
-      qDebug() <<("\n");
-    }
-      }
-  }*/
 }
 
 int  MainWindow::card_write(){
@@ -136,7 +112,6 @@ int  MainWindow::card_write(){
     uint8_t sak[1];
     uint8_t uid[12];
     uint16_t uid_len = 12;
-    QString affichage="";
 
 
   status = ISO14443_3_A_PollCard(&MonLecteur, atq, sak, uid, &uid_len);
@@ -148,6 +123,9 @@ int  MainWindow::card_write(){
   status = Mf_Classic_Write_Block(&MonLecteur, TRUE, 10, (uint8_t*)DataIn, Auth_KeyB, 2);
 
   qDebug() << "Vous avez écris sur la carte !";
+
+
+
 }
 
 void MainWindow::on_button_Lecture1_clicked()
@@ -172,3 +150,40 @@ void MainWindow::on_button_Deconnexion_clicked()
     ui->affichageInfo3->clear();
     ui->affichageMonnaie->clear();
 }
+
+void MainWindow::on_pushButton_Payer_clicked()
+{
+    changerValeurPM(PAYER);
+}
+
+void MainWindow::on_pushButton_Charger_clicked()
+{
+    changerValeurPM(CHARGER);
+}
+
+void MainWindow::changerValeurPM(bool choixAction)
+{
+    int16_t status = 0;
+    uint8_t atq[2];
+    uint8_t sak[1];
+    uint8_t uid[12];
+    uint16_t uid_len = 12;
+    int valOpe = ui->spinBox_selectValue->text().toInt();
+    int valMonnaie = ui->affichageMonnaie->toPlainText().toInt();
+
+    status = ISO14443_3_A_PollCard(&MonLecteur, atq, sak, uid, &uid_len);
+    if(choixAction)
+    {
+        status = Mf_Classic_Increment_Value(&MonLecteur,TRUE,14,valOpe,13,Auth_KeyB,3);
+        status = Mf_Classic_Restore_Value(&MonLecteur,TRUE,13,14,Auth_KeyB,3);
+
+
+    }else{
+        status = Mf_Classic_Decrement_Value(&MonLecteur,TRUE,14,valOpe,13,Auth_KeyB,3);
+        status = Mf_Classic_Restore_Value(&MonLecteur,TRUE,13,14,Auth_KeyB,3);
+
+    }
+    this->card_read();
+}
+
+
