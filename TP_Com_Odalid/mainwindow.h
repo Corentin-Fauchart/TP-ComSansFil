@@ -40,6 +40,8 @@ private slots:
 
     void on_pushButton_Charger_clicked();
 
+    void on_button_Reset_clicked();
+
 private:
     Ui::MainWindow *ui;
     void changerValeurPM(bool choixAction);

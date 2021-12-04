@@ -36,6 +36,13 @@ void MainWindow::on_button_Connect_clicked()
     MonLecteur.Type = ReaderCDC;
     MonLecteur.device = 0;
     status = OpenCOM(&MonLecteur);
+    if(status==0){
+        ui->affichageCarte->update();
+        ui->button_Connect->setEnabled(false);
+        ui->button_Deconnexion->setEnabled(true);
+        ui->button_Reset->setEnabled(true);
+        ui->button_Lecture1->setEnabled(true);
+    }
     qDebug() << "OpenCOM1" << status;
 
     RF_Power_Control(&MonLecteur, TRUE, 0);
@@ -45,7 +52,6 @@ void MainWindow::on_button_Connect_clicked()
     status = Mf_Classic_LoadKey(&MonLecteur, Auth_KeyB, key_sec3Ecr, 3);
     status = Version(&MonLecteur);
     ui->affichageCarte->setText(MonLecteur.version);
-    ui->affichageCarte->update();
 
 
 }
@@ -100,9 +106,6 @@ int  MainWindow::card_read()
   if(!ui->pushButton_Charger->isEnabled()){
       ui->pushButton_Charger->setEnabled(true);
   }
-
-
-
 
 }
 
@@ -187,3 +190,23 @@ void MainWindow::changerValeurPM(bool choixAction)
 }
 
 
+
+void MainWindow::on_button_Reset_clicked()
+{
+  int16_t status = 0;
+  uint8_t atq[2];
+  uint8_t sak[1];
+  uint8_t uid[12];
+  uint16_t uid_len = 12;
+
+  status = ISO14443_3_A_PollCard(&MonLecteur, atq, sak, uid, &uid_len);
+  char DataIn[16];
+  sprintf(DataIn, "Vincent", 16);
+  status = Mf_Classic_Write_Block(&MonLecteur, TRUE, 9, (uint8_t*)DataIn, Auth_KeyB, 2);
+
+  sprintf(DataIn, "Thivent", 16);
+  status = Mf_Classic_Write_Block(&MonLecteur, TRUE, 10, (uint8_t*)DataIn, Auth_KeyB, 2);
+
+  qDebug() << "Vous avez réinitialiser la carte !";
+
+}

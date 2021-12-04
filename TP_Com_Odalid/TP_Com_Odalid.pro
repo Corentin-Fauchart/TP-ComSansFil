@@ -35,3 +35,6 @@ unix|win32: LIBS += -L$$PWD/../Librairie+sample/LIB/ -lODALID_Education
 INCLUDEPATH += $$PWD/../Librairie+sample/LIB
 DEPENDPATH += $$PWD/../Librairie+sample/LIB
 
+RESOURCES += \
+    images.qrc
+
