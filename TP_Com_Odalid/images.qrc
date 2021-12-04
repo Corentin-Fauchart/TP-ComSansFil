@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/Logo_Esirem.png</file>
+        <file>images/mifare.png</file>
+        <file>images/odalid.png</file>
+    </qresource>
+</RCC>
