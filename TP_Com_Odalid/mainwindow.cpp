@@ -32,8 +32,7 @@ ReaderName MonLecteur;
 void MainWindow::on_button_Connect_clicked()
 {
     uint16_t status = 0;
-    //MonLecteur.Type = ReaderTCP;
-    //strcpy(MonLecteur.IPReader, pszHost);
+
     MonLecteur.Type = ReaderCDC;
     MonLecteur.device = 0;
     status = OpenCOM(&MonLecteur);
@@ -54,8 +53,6 @@ void MainWindow::on_button_Connect_clicked()
     status = Mf_Classic_LoadKey(&MonLecteur, Auth_KeyB, key_sec3Ecr, 3);
     status = Version(&MonLecteur);
     ui->affichageCarte->setText(MonLecteur.version);
-
-
 }
 
 
@@ -93,12 +90,12 @@ int  MainWindow::card_read()
   strcpy(data3, (char*)data);
   ui->affichageInfo3->setText(data3);
 
+  //porte-monnaie
   status = Mf_Classic_Read_Value(&MonLecteur, TRUE, 14, &dataMonnaie, Auth_KeyA, 3);
 
 
   ui->affichageMonnaie->setText(QString::number((int32_t)dataMonnaie));
 
-  //qDebug() <<(char*)data;
   if(!ui->button_Ecriture->isEnabled()){
       ui->button_Ecriture->setEnabled(true);
   }
