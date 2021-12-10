@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "QThread"
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -42,6 +43,7 @@ void MainWindow::on_button_Connect_clicked()
         ui->button_Deconnexion->setEnabled(true);
         ui->button_Reset->setEnabled(true);
         ui->button_Lecture1->setEnabled(true);
+        status = LEDBuzzer(&MonLecteur, LED_RED_ON);
     }
     qDebug() << "OpenCOM1" << status;
 
@@ -107,6 +109,9 @@ int  MainWindow::card_read()
       ui->pushButton_Charger->setEnabled(true);
   }
 
+  status = LEDBuzzer(&MonLecteur, LED_YELLOW_ON);
+  QThread::sleep(1);
+  status = LEDBuzzer(&MonLecteur, LED_YELLOW_OFF);
   return status;
 }
 
@@ -126,6 +131,9 @@ int  MainWindow::card_write(){
   sprintf(DataIn, ui->affichageInfo3->toPlainText().toUtf8().data(), 16);
   status = Mf_Classic_Write_Block(&MonLecteur, TRUE, 10, (uint8_t*)DataIn, Auth_KeyB, 2);
 
+  status = LEDBuzzer(&MonLecteur, LED_GREEN_ON);
+  QThread::sleep(1);
+  status = LEDBuzzer(&MonLecteur, LED_GREEN_OFF);
   qDebug() << "Vous avez écris sur la carte !";
 
   return status;
@@ -186,6 +194,9 @@ void MainWindow::changerValeurPM(bool choixAction)
         status = Mf_Classic_Restore_Value(&MonLecteur,TRUE,13,14,Auth_KeyB,3);
 
     }
+    status = LEDBuzzer(&MonLecteur, LED_GREEN_ON);
+    QThread::sleep(1);
+    status = LEDBuzzer(&MonLecteur, LED_GREEN_OFF);
     this->card_read();
 }
 
@@ -209,8 +220,13 @@ void MainWindow::on_button_Reset_clicked()
 
   uint32_t NoMoney = 0;
 
-          status = Mf_Classic_Write_Value(&MonLecteur,TRUE,13,NoMoney,Auth_KeyB,3);
-          status = Mf_Classic_Restore_Value(&MonLecteur,TRUE,13,14,Auth_KeyB,3);
+  status = Mf_Classic_Write_Value(&MonLecteur,TRUE,13,NoMoney,Auth_KeyB,3);
+  status = Mf_Classic_Restore_Value(&MonLecteur,TRUE,13,14,Auth_KeyB,3);
+
+  status = LEDBuzzer(&MonLecteur, LED_ON);
+  QThread::sleep(1);
+  status = LEDBuzzer(&MonLecteur, LED_OFF);
+  status = LEDBuzzer(&MonLecteur, LED_RED_ON);
 
   qDebug() << "Vous avez réinitialiser la carte !";
 
