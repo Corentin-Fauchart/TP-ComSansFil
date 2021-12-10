@@ -107,6 +107,7 @@ int  MainWindow::card_read()
       ui->pushButton_Charger->setEnabled(true);
   }
 
+  return status;
 }
 
 int  MainWindow::card_write(){
@@ -127,7 +128,7 @@ int  MainWindow::card_write(){
 
   qDebug() << "Vous avez écris sur la carte !";
 
-
+  return status;
 
 }
 
@@ -172,7 +173,6 @@ void MainWindow::changerValeurPM(bool choixAction)
     uint8_t uid[12];
     uint16_t uid_len = 12;
     int valOpe = ui->spinBox_selectValue->text().toInt();
-    int valMonnaie = ui->affichageMonnaie->toPlainText().toInt();
 
     status = ISO14443_3_A_PollCard(&MonLecteur, atq, sak, uid, &uid_len);
     if(choixAction)
@@ -206,6 +206,11 @@ void MainWindow::on_button_Reset_clicked()
 
   sprintf(DataIn, "Thivent", 16);
   status = Mf_Classic_Write_Block(&MonLecteur, TRUE, 10, (uint8_t*)DataIn, Auth_KeyB, 2);
+
+  uint32_t NoMoney = 0;
+
+          status = Mf_Classic_Write_Value(&MonLecteur,TRUE,13,NoMoney,Auth_KeyB,3);
+          status = Mf_Classic_Restore_Value(&MonLecteur,TRUE,13,14,Auth_KeyB,3);
 
   qDebug() << "Vous avez réinitialiser la carte !";
 
